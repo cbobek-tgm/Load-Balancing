@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="autofabrik" default="compile" basedir=".">
+
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="bin" />
+	<property name="lib.dir" value="lib" />
+	
+	<path id="project.classpath">
+		<pathelement location="${build.dir}" />
+		<fileset dir="${lib.dir}" >
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+	<target name="compile" description="Compile project.">
+		<mkdir dir="${build.dir}" />
+		<javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="project.classpath" debug="true" deprecation="true" includeantruntime="false" />
+	</target>
+
+	<target name="run-server" depends="compile" description="Run server.">
+		<java classname="JavaServer" fork="true" classpathref="project.classpath">
+		</java>
+	</target>
+	
+	<target name="run-client" depends="compile" description="Run client.">
+		<java classname="JavaClient" fork="true" classpathref="project.classpath">
+		</java>
+	</target>
+
+	<target name="clean" description="Clean project">
+		<delete dir="${build.dir}" />
+	</target>
+
+
+</project>
